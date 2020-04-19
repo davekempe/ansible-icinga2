@@ -1,0 +1,16 @@
+---
+icinga2_packages:
+  - icinga2
+  - monitoring-plugins
+
+ido_packages:
+  - mariadb-server
+  - mariadb-client
+  - python-pymysql
+  - icinga2-ido-mysql
+
+# defaults from
+# https://icinga.com/docs/icinga2/latest/doc/09-object-types/#idomysqlconnection
+ido_db: icinga
+ido_user: icinga
+ido_password: icinga

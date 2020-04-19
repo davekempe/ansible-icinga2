@@ -1,0 +1,15 @@
+galaxy_info:
+  author: "Oliver Lowe <o@olowe.co>"
+  description: Install and configure an Icinga2 master server
+  license: ISC
+  min_ansible_version: 2.4
+  platforms:
+    - name: Debian
+      versions:
+        - buster
+
+  galaxy_tags:
+    - icinga2
+    - icinga
+
+dependencies: []

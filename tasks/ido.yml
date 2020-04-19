@@ -1,0 +1,41 @@
+---
+- name: ido packages
+  package:
+    name: "{{ ido_packages }}"
+
+- name: ido database
+  become: true
+  mysql_db:
+    name: "{{ ido_db }}"
+    state: present
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: show tables
+  shell: "echo 'SHOW TABLES' | mysql {{ ido_db }}"
+  register: tables
+
+- name: ido schema
+  mysql_db:
+    name: "{{ ido_db }}"
+    state: import
+    target: /usr/share/icinga2-ido-mysql/schema/mysql.sql
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  when: '"icinga" not in tables.stdout'
+
+- name: ido user
+  mysql_user:
+    name: "{{ ido_user }}"
+    password: "{{ ido_password }}"
+    priv: "icinga.*:SELECT,INSERT,UPDATE,DELETE,DROP,CREATE VIEW,INDEX,EXECUTE"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- icinga2_feature:
+    name: ido-mysql
+    state: present
+
+- name: ido object configuration
+  template:
+    src: ido-mysql.conf.j2
+    dest: /etc/icinga2/features-available/ido-mysql.conf
+  notify:
+    - restart icinga2

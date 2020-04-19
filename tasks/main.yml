@@ -1,0 +1,21 @@
+---
+- name: add icinga apt repo key
+  apt_key:
+    url: "https://packages.icinga.com/icinga.key"
+
+- name: install icinga apt repository
+  apt_repository:
+    repo: "deb http://packages.icinga.com/debian icinga-{{ ansible_distribution_release }} main"
+
+- name: install icinga2
+  package:
+    name: "{{ icinga2_packages }}"
+    state: present
+  notify:
+    - restart icinga2
+
+- include_tasks: ido.yml
+
+- name: API setup
+  command: "icinga2 api setup"
+  changed_when: '"Writing private key" in result.stdout'
