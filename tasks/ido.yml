@@ -4,7 +4,6 @@
     name: "{{ ido_packages }}"
 
 - name: ido database
-  become: true
   mysql_db:
     name: "{{ ido_db }}"
     state: present
