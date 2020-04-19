@@ -14,3 +14,11 @@ ido_packages:
 ido_db: icinga
 ido_user: icinga
 ido_password: icinga
+
+icingaweb2_packages:
+  - apache2
+  - icingaweb2
+  - icingacli
+
+icingaweb2_db_user: icingaweb2
+icingaweb2_db_password: icingaweb2

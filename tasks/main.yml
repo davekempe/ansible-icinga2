@@ -19,3 +19,5 @@
 - name: API setup
   command: "icinga2 api setup"
   changed_when: '"Writing private key" in result.stdout'
+
+- include_tasks: web.yml

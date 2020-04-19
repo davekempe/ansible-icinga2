@@ -1,0 +1,18 @@
+---
+- name: icingaweb2 packages
+  package:
+    name: "{{ icingaweb2_packages }}"
+    state: present
+
+- name: icingaweb2 database
+  mysql_db:
+    name: icingaweb2
+    state: present
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: icingaweb2 db user
+  mysql_user:
+    name: "{{ icingaweb2_db_user }}"
+    password: "{{ icingaweb2_db_password }}"
+    priv: "icingaweb2.*:ALL"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
