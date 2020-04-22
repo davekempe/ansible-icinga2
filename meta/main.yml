@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: "icinga2"
   author: "Oliver Lowe <o@olowe.co>"
   description: Install and configure an Icinga2 master server
   license: ISC
